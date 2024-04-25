@@ -5,8 +5,6 @@ const App = () => {
   return (
     <div>
       <CoursesApp/>
-      <CounterApp/>
-      <LeftRightApp/>
     </div>
   )
 }
@@ -75,61 +73,5 @@ const Total = (props) => {
     </div>
   )
 }
-
-const CounterApp = () => {
-  const [counter, setCounter] = useState(0);
-
-  const increment = () => setCounter(counter + 1);
-  const decrement = () => setCounter(counter - 1);
-  const zero = () => setCounter(0);
-
-  return (
-    <div>
-      <Display counter={counter}/>
-      <Button text="plus" onClick={increment}/>
-      <Button text="minus" onClick={decrement}/>
-      <Button text="zero" onClick={zero}/>
-    </div>
-  )
-}
-
-const Display = ({counter}) => <div>{counter}</div>
-
-const Button = ({text, onClick}) => <button onClick={onClick}>{text}</button>
-
-const History = ({allClicks}) => {
-  if (allClicks.length === 0) {
-    return <div>the app is used by pressing the buttons</div>
-  } else {
-    return <div>Button press history: {allClicks.join(" ")}</div>
-  }
-}
-
-const LeftRightApp = () => {
-  const [left, setLeft] = useState(0);
-  const [right, setRight] = useState(0);
-  const [allClicks, setAllClicks] = useState([]);
-
-  const handleLeft = () => {
-    setLeft(left + 1)
-    setAllClicks(allClicks.concat("L"))
-  }
-  const handleRight = () => {
-    setRight(right + 1)
-    setAllClicks(allClicks.concat("R"))
-  }
-
-  return (
-    <div>
-      {left}
-      <Button onClick={handleLeft} text={"Left"}/>
-      <Button onClick={handleRight} text={"Right"}/>
-      {right}
-      <History allClicks={allClicks}/>
-    </div>
-  )
-}
-
-
 
 export default App
