@@ -16,7 +16,11 @@ const App = () => {
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
   const randInt = (upperBound) => Math.floor(Math.random() * upperBound);
-  const nextAnecdote = () => setSelected(randInt(anecdotes.length));
+  const nextAnecdote = () => {
+    let next = selected;
+    while (next === selected) next = randInt(anecdotes.length);
+    setSelected(next);
+  }
 
   const vote = () => {
     let nextVotes = [...votes ]
