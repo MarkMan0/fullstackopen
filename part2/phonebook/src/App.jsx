@@ -6,6 +6,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     phonebookService
@@ -15,6 +16,15 @@ const App = () => {
       })
   }, [])
 
+  const notifyUser = (message, type) => {
+    setNotification({message, type})
+    setTimeout(() => {
+      setNotification(null)
+    }, 5000)
+  }
+
+  const notifySuccess = (message) => notifyUser(message, "ok")
+  const notifyError = (message) => notifyUser(message, "error")
 
   const onSubmit = (event) => {
     event.preventDefault()
@@ -29,6 +39,11 @@ const App = () => {
           setPersons(persons.map(p => p.id === found.id ? updated : p))
           setNewName("")
           setNewNumber("")
+          notifySuccess(`Updated ${updated.name}`)
+        })
+        .catch(error => {
+          notifyError(`Failed to update ${found.name}. Deleted?`)
+          setPersons(persons.filter(p => p.id !== found.id))
         })
     } else {
       phonebookService
@@ -37,6 +52,7 @@ const App = () => {
           setPersons(persons.concat(created))
           setNewName("")
           setNewNumber("")
+          notifySuccess(`Created ${created.name}`)
         })
     }
   }
@@ -50,12 +66,18 @@ const App = () => {
       .delete_(person.id)
       .then(deleted => {
         setPersons(persons.filter(p => p.id != person.id))
+        notifySuccess(`Deleted ${deleted.name}`)
+      })
+      .catch(error => {
+        notifyError(`Person ${person.name} already deleted`)
+        setPersons(persons.filter(p => p.id != person.id))
       })
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification notification={notification} />
       <div>
         <Input text="filter" value={nameFilter} setter={setNameFilter}/>
       </div>
@@ -93,5 +115,27 @@ const PersonForm = ({personName, nameSetter, number, numberSetter, onSubmit}) =>
     </div>
   </form>
 )
+
+const Notification = ({ notification }) => {
+  if (notification === null) {
+    return null
+  }
+
+  const css = {
+    color: notification.type == "ok" ? "green" : "red",
+    background: "lightgrey",
+    fontSize: "20px",
+    borderStyle: "solid",
+    borderRadius: "5px",
+    padding: "10px",
+    marginBottom: "10px"
+  }
+
+  return (
+    <div style={css}>
+      {notification.message}
+    </div>
+  )
+}
 
 export default App
