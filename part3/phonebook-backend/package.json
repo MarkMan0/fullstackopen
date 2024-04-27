@@ -1,0 +1,29 @@
+{
+  "name": "phonebook-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"no test\" && exit 1",
+    "dev": "nodemon index.js",
+    "deploy": "npm install && bash scripts/build-ui.sh && echo commit to deploy",
+    "lint": "eslint ."
+  },
+  "author": "Mark Pal",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.1.1",
+    "@stylistic/eslint-plugin-js": "^1.8.0",
+    "eslint": "^9.1.1",
+    "globals": "^15.1.0",
+    "nodemon": "^3.1.0"
+  }
+}

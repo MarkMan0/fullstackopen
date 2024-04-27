@@ -12,7 +12,7 @@ const App = (props) => {
     noteservice
       .getAll()
       .then(initialNotes  => {
-        setNotes(initialNotes.concat({id: "qqq", content: "xxx", important: false}))
+        setNotes(initialNotes)
       })
   }, [])
 
@@ -57,7 +57,7 @@ const App = (props) => {
 
   return (
     <div>
-      <h1>Notes</h1>
+      <h1>Notes on Render</h1>
       <Notification message={errorMessage} />
       <div>
         <button onClick={() => setShowAll(!showAll)}>

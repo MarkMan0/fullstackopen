@@ -1,0 +1,35 @@
+GET http://localhost:3001/api/notes
+###
+DELETE http://localhost:3001/api/notes/1
+###
+POST http://localhost:3001/api/notes
+content-type: application/json
+
+{
+    "content": "vscode note",
+    "important": false
+}
+
+
+###
+GET http://localhost:3001/api/persons
+###
+GET http://localhost:3001/api/persons22
+###
+DELETE http://localhost:3001/api/persons/1
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "name": "vscode note31",
+    "number": "code"
+}
+
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "name": "vscode note3"
+}

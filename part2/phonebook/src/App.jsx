@@ -36,14 +36,20 @@ const App = () => {
       phonebookService
         .update(found.id, {...found, number: newNumber})
         .then(updated => {
+          if (!updated) {
+            notifyError(`Failed to update ${found.name}. Deleted?`)
+            setPersons(persons.filter(p => p.id !== found.id))
+            return
+          }
           setPersons(persons.map(p => p.id === found.id ? updated : p))
           setNewName("")
           setNewNumber("")
           notifySuccess(`Updated ${updated.name}`)
         })
         .catch(error => {
-          notifyError(`Failed to update ${found.name}. Deleted?`)
-          setPersons(persons.filter(p => p.id !== found.id))
+          if (error) {
+            notifyError(error.response.data.error)
+          }
         })
     } else {
       phonebookService
@@ -53,6 +59,9 @@ const App = () => {
           setNewName("")
           setNewNumber("")
           notifySuccess(`Created ${created.name}`)
+        })
+        .catch(error => {
+          notifyError(error.response.data.error)
         })
     }
   }
