@@ -16,9 +16,9 @@ describe('when there is initially some blogs saved', () => {
     await Blog.deleteMany({})
     await User.deleteMany({})
 
-    await api.post('/api/users').send(helper.testUser);
-    const login = await api.post('/api/login').send({ username: helper.testUser.username, password: helper.testUser.password });
-    TOKEN = `Bearer ${login.body.token}`;
+    await api.post('/api/users').send(helper.testUser)
+    const login = await api.post('/api/login').send({ username: helper.testUser.username, password: helper.testUser.password })
+    TOKEN = `Bearer ${login.body.token}`
 
     const postBlog = async (blog) => {
       return await api

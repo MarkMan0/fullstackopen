@@ -12,7 +12,7 @@ const User = require('../models/user')
 
 describe('when there is initially some notes saved', () => {
 
-  var TOKEN = ""
+  var TOKEN = ''
 
   beforeEach(async () => {
     await Note.deleteMany({})
